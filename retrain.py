@@ -240,7 +240,7 @@ def create_inception_graph():
   """
   with tf.Session() as sess:
     model_filename = os.path.join(
-        FLAGS.model_dir, 'classify_image_graph_def.pb')
+        FLAGS.model_dir,'classify_image_graph_def.pb')
     with gfile.FastGFile(model_filename, 'rb') as f:
       graph_def = tf.GraphDef()
       graph_def.ParseFromString(f.read())
@@ -747,9 +747,9 @@ def main(_):
 
   # Merge all the summaries and write them out to /tmp/retrain_logs (by default)
   merged = tf.summary.merge_all()
-  train_writer = tf.train.SummaryWriter(FLAGS.summaries_dir + '/train',
+  train_writer = tf.summary.FileWriter(FLAGS.summaries_dir + '/train',
                                         sess.graph)
-  validation_writer = tf.train.SummaryWriter(FLAGS.summaries_dir + '/validation')
+  validation_writer =tf.summary.FileWriter(FLAGS.summaries_dir + '/validation')
 
   # Set up all our weights to their initial default values.
   init = tf.global_variables_initializer()
@@ -834,25 +834,25 @@ if __name__ == '__main__':
   parser.add_argument(
       '--output_graph',
       type=str,
-      default='/home/iamukasa/tfClassifier/image_classification/ouput/output_graph.pb',
+      default='/home/iamukasa/PythonProjects/KSL/inception/output_graph.pb',
       help='Where to save the trained graph.'
   )
   parser.add_argument(
       '--output_labels',
       type=str,
-      default='/home/iamukasa/tfClassifier/image_classification/ouput/output_labels.txt',
+      default='/home/iamukasa/PythonProjects/KSL/inception/output_labels.txt',
       help='Where to save the trained graph\'s labels.'
   )
   parser.add_argument(
       '--summaries_dir',
       type=str,
-      default='/home/iamukasa/tfClassifier/image_classification/ouput/retrain_logs',
+      default='output/retrain_logs',
       help='Where to save summary logs for TensorBoard.'
   )
   parser.add_argument(
       '--how_many_training_steps',
       type=int,
-      default=4000,
+      default=6000,
       help='How many training steps to run before ending.'
   )
   parser.add_argument(
@@ -907,7 +907,7 @@ if __name__ == '__main__':
   parser.add_argument(
       '--model_dir',
       type=str,
-      default='/home/iamukasa/tfClassifier/image_classification/ouput',
+      default='/home/iamukasa/hot_not/Inception/inception',
       help="""\
       Path to classify_image_graph_def.pb,
       imagenet_synset_to_human_label_map.txt, and
@@ -917,7 +917,7 @@ if __name__ == '__main__':
   parser.add_argument(
       '--bottleneck_dir',
       type=str,
-      default='/home/iamukasa/tfClassifier/image_classification/ouput',
+      default='ouput',
       help='Path to cache bottleneck layer values as files.'
   )
   parser.add_argument(
